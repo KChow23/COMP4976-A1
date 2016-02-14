@@ -207,6 +207,11 @@
       <DependentUpon>201602140829580_FirstDBCreation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\DiplomaMigrations\Configuration.cs" />
+    <Compile Include="Migrations\IdentityMigrations\201602142212433_InitialCreate.cs" />
+    <Compile Include="Migrations\IdentityMigrations\201602142212433_InitialCreate.Designer.cs">
+      <DependentUpon>201602142212433_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\IdentityMigrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -299,6 +304,12 @@
     <EmbeddedResource Include="Migrations\DiplomaMigrations\201602140829580_FirstDBCreation.resx">
       <DependentUpon>201602140829580_FirstDBCreation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\IdentityMigrations\201602142212433_InitialCreate.resx">
+      <DependentUpon>201602142212433_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

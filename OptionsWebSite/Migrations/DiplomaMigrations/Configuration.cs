@@ -1,6 +1,9 @@
 namespace OptionsWebSite.Migrations.DiplomaMigrations
 {
     using DiplomaDataModel;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -17,6 +20,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
 
         protected override void Seed(DiplomaDataModel.DiplomaContext context)
         {
+
             List<YearTerm> yearTerms = new List<YearTerm>()
             {
                 new YearTerm {Year=2015, Term=20, IsDefault=false },
