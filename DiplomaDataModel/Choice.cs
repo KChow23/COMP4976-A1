@@ -15,9 +15,9 @@ namespace DiplomaDataModel
         public int ChoiceId { get; set; }
 
         [ForeignKey("YearTerm")]
-        public int YearTermId { get; set; }
+        public int? YearTermId { get; set; }
         [ForeignKey("YearTermId")]
-        public YearTerm YearTerm { get; set; }
+        public virtual YearTerm YearTerm { get; set; }
 
         [RegularExpression("A00[0-9]{6}")]
         [MaxLength(9)]
@@ -40,7 +40,7 @@ namespace DiplomaDataModel
         public int? FirstChoiceOptionId { get; set; }
 
         [ForeignKey("FirstChoiceOptionId")]
-        public Option FirstOption { get; set; }
+        public virtual Option FirstOption { get; set; }
 
         [Display(Name = "Second Choice: ")]
         [Column(Order = 1)]
@@ -50,7 +50,7 @@ namespace DiplomaDataModel
         public int? SecondChoiceOptionId { get; set; }
 
         [ForeignKey("SecondChoiceOptionId")]
-        public Option SecondOption { get; set; }
+        public virtual Option SecondOption { get; set; }
 
         [Display(Name = "Third Choice: ")]
         [Column(Order = 3)]
@@ -60,7 +60,7 @@ namespace DiplomaDataModel
         public int? ThirdChoiceOptionId { get; set; }
 
         [ForeignKey("ThirdChoiceOptionId")]
-        public Option ThirdOption { get; set; }
+        public virtual Option ThirdOption { get; set; }
 
         [Display(Name = "Fourth Choice: ")]
         [Column(Order = 4)]
@@ -70,7 +70,7 @@ namespace DiplomaDataModel
         public int? FourthChoiceOptionId { get; set; }
 
         [ForeignKey("FourthChoiceOptionId")]
-        public Option FourthOption { get; set; }
+        public virtual Option FourthOption { get; set; }
 
         private DateTime _SelectionDate = DateTime.MinValue;
 

@@ -13,7 +13,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201602140829580_FirstDBCreation"; }
+            get { return "201602150149428_FirstDBCreation"; }
         }
         
         string IMigrationMetadata.Source

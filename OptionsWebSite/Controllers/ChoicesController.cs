@@ -14,6 +14,7 @@ namespace OptionsWebSite.Controllers
     {
         private DiplomaContext db = new DiplomaContext();
 
+
         // GET: Choices
         public ActionResult Index()
         {
@@ -40,10 +41,15 @@ namespace OptionsWebSite.Controllers
         [Authorize(Roles = "Student")]
         public ActionResult Create()
         {
-            ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
-            ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
-            ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
-            ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
+            var option = from a in db.Options
+                         where a.IsActive.Equals(true)
+                         select a;
+
+            ViewBag.FirstChoiceOptionId = new SelectList(option, "OptionId", "Title");
+            ViewBag.FourthChoiceOptionId = new SelectList(option, "OptionId", "Title");
+            ViewBag.SecondChoiceOptionId = new SelectList(option, "OptionId", "Title");
+            ViewBag.ThirdChoiceOptionId = new SelectList(option, "OptionId", "Title");
+            ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId");
             var query = from a in db.YearTerms
                         where a.IsDefault.Equals(true)
                         select a;
@@ -59,7 +65,7 @@ namespace OptionsWebSite.Controllers
             if (term.Term == 30)
             {
                 ViewBag.YearTermCurrent = "Fall";
-            }
+            }      
             return View();
         }
 
@@ -82,6 +88,22 @@ namespace OptionsWebSite.Controllers
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.SecondChoiceOptionId);
             ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.ThirdChoiceOptionId);
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId", choice.YearTermId);
+            var query = from a in db.YearTerms
+                        where a.IsDefault.Equals(true)
+                        select a;
+            var term = query.FirstOrDefault();
+            if (term.Term == 10)
+            {
+                ViewBag.YearTermCurrent = "Winter";
+            }
+            else if (term.Term == 20)
+            {
+                ViewBag.YearTermCurrent = "Spring/Summer";
+            }
+            if (term.Term == 30)
+            {
+                ViewBag.YearTermCurrent = "Fall";
+            }
             return View(choice);
         }
 
