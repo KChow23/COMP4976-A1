@@ -282,6 +282,7 @@
     <Content Include="Views\Choices\Details.cshtml" />
     <Content Include="Views\Choices\Edit.cshtml" />
     <Content Include="Views\Choices\Index.cshtml" />
+    <Content Include="Views\Shared\AuthPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

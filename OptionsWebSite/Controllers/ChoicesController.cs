@@ -37,6 +37,7 @@ namespace OptionsWebSite.Controllers
         }
 
         // GET: Choices/Create
+        [Authorize(Roles = "Student")]
         public ActionResult Create()
         {
             ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
