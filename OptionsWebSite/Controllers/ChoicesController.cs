@@ -44,7 +44,22 @@ namespace OptionsWebSite.Controllers
             ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
             ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
-            ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId");
+            var query = from a in db.YearTerms
+                        where a.IsDefault.Equals(true)
+                        select a;
+            var term = query.FirstOrDefault();
+            if(term.Term == 10)
+            {
+                ViewBag.YearTermCurrent = "Winter";
+            }
+            else if (term.Term == 20)
+            {
+                ViewBag.YearTermCurrent = "Spring/Summer";
+            }
+            if (term.Term == 30)
+            {
+                ViewBag.YearTermCurrent = "Fall";
+            }
             return View();
         }
 
