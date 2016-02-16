@@ -13,7 +13,7 @@ namespace DiplomaDataModel
     {
         [Key]
         public int ChoiceId { get; set; }
-
+        
         [ForeignKey("YearTerm")]
         public int? YearTermId { get; set; }
         [ForeignKey("YearTermId")]
@@ -24,10 +24,12 @@ namespace DiplomaDataModel
         [ReadOnly(true)]
         public string StudentId { get; set; }
 
+        [Display(Name = "First Name: ")]
         [MaxLength(40)]
         [Required]
         public string StudentFirstName { get; set; }
 
+        [Display(Name = "Last Name: ")]
         [MaxLength(40)]
         [Required]
         public string StudentLastName { get; set; }
@@ -37,8 +39,9 @@ namespace DiplomaDataModel
         [Index(IsUnique = true)]
         [UIHint("OptionDropdown")]
         [ForeignKey("FirstOption")]
+        [Required]
         public int? FirstChoiceOptionId { get; set; }
-
+        
         [ForeignKey("FirstChoiceOptionId")]
         public virtual Option FirstOption { get; set; }
 
@@ -47,6 +50,7 @@ namespace DiplomaDataModel
         [Index(IsUnique = true)]
         [UIHint("OptionDropdown")]
         [ForeignKey("SecondOption")]
+        [Required]
         public int? SecondChoiceOptionId { get; set; }
 
         [ForeignKey("SecondChoiceOptionId")]
@@ -57,6 +61,7 @@ namespace DiplomaDataModel
         [Index(IsUnique = true)]
         [UIHint("OptionDropdown")]
         [ForeignKey("ThirdOption")]
+        [Required]
         public int? ThirdChoiceOptionId { get; set; }
 
         [ForeignKey("ThirdChoiceOptionId")]
@@ -67,6 +72,7 @@ namespace DiplomaDataModel
         [Index(IsUnique = true)]
         [UIHint("OptionDropdown")]
         [ForeignKey("FourthOption")]
+        [Required]
         public int? FourthChoiceOptionId { get; set; }
 
         [ForeignKey("FourthChoiceOptionId")]

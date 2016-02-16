@@ -8,21 +8,13 @@ namespace OptionsWebSite.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+        public ActionResult Index() {
+            // Redirect if the user is already logged in
+            if (User.IsInRole("Admin")) {
+                return RedirectToAction("Index", "Choices", new { });
+            } else if (User.IsInRole("Student")) {
+                return RedirectToAction("Create", "Choices", new { });
+            }
 
             return View();
         }
