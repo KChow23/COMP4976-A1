@@ -14,7 +14,9 @@ namespace OptionsWebSite.Controllers
     {
         private DiplomaContext db = new DiplomaContext();
 
+
         // GET: Choices
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
@@ -22,6 +24,7 @@ namespace OptionsWebSite.Controllers
         }
 
         // GET: Choices/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,13 +40,34 @@ namespace OptionsWebSite.Controllers
         }
 
         // GET: Choices/Create
+        [Authorize(Roles = "Student,Admin")]
         public ActionResult Create()
         {
-            ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
-            ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
-            ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
-            ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
+            var option = from a in db.Options
+                         where a.IsActive.Equals(true)
+                         select a;
+
+            ViewBag.FirstChoiceOptionId = new SelectList(option, "OptionId", "Title");
+            ViewBag.FourthChoiceOptionId = new SelectList(option, "OptionId", "Title");
+            ViewBag.SecondChoiceOptionId = new SelectList(option, "OptionId", "Title");
+            ViewBag.ThirdChoiceOptionId = new SelectList(option, "OptionId", "Title");
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId");
+            var query = from a in db.YearTerms
+                        where a.IsDefault.Equals(true)
+                        select a;
+            var term = query.FirstOrDefault();
+            if(term.Term == 10)
+            {
+                ViewBag.YearTermCurrent = "Winter";
+            }
+            else if (term.Term == 20)
+            {
+                ViewBag.YearTermCurrent = "Spring/Summer";
+            }
+            if (term.Term == 30)
+            {
+                ViewBag.YearTermCurrent = "Fall";
+            }      
             return View();
         }
 
@@ -52,6 +76,7 @@ namespace OptionsWebSite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Student,Admin")]
         public ActionResult Create([Bind(Include = "ChoiceId,YearTermId,StudentId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
         {
             if (ModelState.IsValid)
@@ -66,10 +91,27 @@ namespace OptionsWebSite.Controllers
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.SecondChoiceOptionId);
             ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.ThirdChoiceOptionId);
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId", choice.YearTermId);
+            var query = from a in db.YearTerms
+                        where a.IsDefault.Equals(true)
+                        select a;
+            var term = query.FirstOrDefault();
+            if (term.Term == 10)
+            {
+                ViewBag.YearTermCurrent = "Winter";
+            }
+            else if (term.Term == 20)
+            {
+                ViewBag.YearTermCurrent = "Spring/Summer";
+            }
+            if (term.Term == 30)
+            {
+                ViewBag.YearTermCurrent = "Fall";
+            }
             return View(choice);
         }
 
         // GET: Choices/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -94,6 +136,7 @@ namespace OptionsWebSite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "ChoiceId,YearTermId,StudentId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
         {
             if (ModelState.IsValid)
@@ -111,6 +154,7 @@ namespace OptionsWebSite.Controllers
         }
 
         // GET: Choices/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -128,6 +172,7 @@ namespace OptionsWebSite.Controllers
         // POST: Choices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Choice choice = db.Choices.Find(id);
