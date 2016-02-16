@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.YearTermId, "YearTermId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("YearTermId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.YearTermId, new { @class = "form-control", @placeholder = ViewBag.TermId, @Value = ViewBag.YearId, @readonly = "true" })
                 @Html.ValidationMessageFor(model => model.YearTermId, "", new { @class = "text-danger" })
             </div>
         </div>

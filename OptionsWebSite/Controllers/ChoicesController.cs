@@ -65,10 +65,11 @@ namespace OptionsWebSite.Controllers
             {
                 ViewBag.YearTermCurrent = "Spring/Summer";
             }
-            if (term.Term == 30)
+            else if (term.Term == 30)
             {
                 ViewBag.YearTermCurrent = "Fall";
-            }      
+            }
+            ViewBag.YearId = term.YearTermId;
             return View();
         }
 
@@ -86,11 +87,14 @@ namespace OptionsWebSite.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            var option = from a in db.Options
+                         where a.IsActive.Equals(true)
+                         select a;
 
-            ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FirstChoiceOptionId);
-            ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FourthChoiceOptionId);
-            ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.SecondChoiceOptionId);
-            ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.ThirdChoiceOptionId);
+            ViewBag.FirstChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.FirstChoiceOptionId);
+            ViewBag.FourthChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.FourthChoiceOptionId);
+            ViewBag.SecondChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.SecondChoiceOptionId);
+            ViewBag.ThirdChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.ThirdChoiceOptionId);
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId", choice.YearTermId);
             var query = from a in db.YearTerms
                         where a.IsDefault.Equals(true)
@@ -104,10 +108,11 @@ namespace OptionsWebSite.Controllers
             {
                 ViewBag.YearTermCurrent = "Spring/Summer";
             }
-            if (term.Term == 30)
+            else if (term.Term == 30)
             {
                 ViewBag.YearTermCurrent = "Fall";
             }
+            ViewBag.YearId = term.Term;
             return View(choice);
         }
 
@@ -124,10 +129,14 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FirstChoiceOptionId);
-            ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FourthChoiceOptionId);
-            ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.SecondChoiceOptionId);
-            ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.ThirdChoiceOptionId);
+            var option = from a in db.Options
+                         where a.IsActive.Equals(true)
+                         select a;
+
+            ViewBag.FirstChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.FirstChoiceOptionId);
+            ViewBag.FourthChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.FourthChoiceOptionId);
+            ViewBag.SecondChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.SecondChoiceOptionId);
+            ViewBag.ThirdChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.ThirdChoiceOptionId);
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId", choice.YearTermId);
             return View(choice);
         }
@@ -146,10 +155,13 @@ namespace OptionsWebSite.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FirstChoiceOptionId);
-            ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.FourthChoiceOptionId);
-            ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.SecondChoiceOptionId);
-            ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title", choice.ThirdChoiceOptionId);
+            var option = from a in db.Options
+                         where a.IsActive.Equals(true)
+                         select a;
+            ViewBag.FirstChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.FirstChoiceOptionId);
+            ViewBag.FourthChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.FourthChoiceOptionId);
+            ViewBag.SecondChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.SecondChoiceOptionId);
+            ViewBag.ThirdChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.ThirdChoiceOptionId);
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId", choice.YearTermId);
             return View(choice);
         }
