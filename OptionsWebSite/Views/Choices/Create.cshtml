@@ -16,17 +16,17 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <h4>@ViewBag.YearTermCurrent</h4>
         <div class="form-group">
-            @Html.LabelFor(model => model.YearTermId, "YearTermId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("YearTermId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.HiddenFor(model => model.YearTermId, new { @class = "form-control", @placeholder = ViewBag.TermId, @Value = ViewBag.YearId, @readonly = "true" })
                 @Html.ValidationMessageFor(model => model.YearTermId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StudentId, "Student ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StudentId, "StudentId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <p class="form-control-static">@this.User.Identity.Name</p>
+                @Html.TextBoxFor(model => model.StudentId, new { @class = "form-control", @placeholder = ViewBag.StudentId, @Value = ViewBag.StudentId, @readonly = "true" })
+                @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -70,9 +70,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FourthChoiceOptionId, "", "Fourth Choice: ", htmlAttributes: new { @class = "control-label col-md-2" })
+           @Html.LabelFor(model => model.FourthChoiceOptionId, "Fourth Choice: ", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FourthChoiceOptionId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("FourthChoiceOptionId", null, "", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FourthChoiceOptionId, "", new { @class = "text-danger" })
             </div>
         </div>
