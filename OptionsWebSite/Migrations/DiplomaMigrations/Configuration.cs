@@ -36,7 +36,8 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 new Option {Title="Client Server", IsActive=true },
                 new Option {Title="Digital Processing", IsActive=true },
                 new Option {Title="Information Systems",IsActive=true },
-                new Option {Title="Database", IsActive=true  },
+                new Option {Title="Database", IsActive=false  },
+                 new Option {Title="Tech Pro", IsActive=false},
                 new Option {Title="Web & Mobile", IsActive=true}
             };
             context.Options.AddOrUpdate(o => o.OptionId, options.ToArray());

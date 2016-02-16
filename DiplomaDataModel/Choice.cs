@@ -21,7 +21,6 @@ namespace DiplomaDataModel
 
         [RegularExpression("A00[0-9]{6}")]
         [MaxLength(9)]
-        [ReadOnly(true)]
         public string StudentId { get; set; }
 
         [Display(Name = "First Name: ")]

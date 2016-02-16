@@ -52,6 +52,7 @@ namespace OptionsWebSite.Controllers
             ViewBag.SecondChoiceOptionId = new SelectList(option, "OptionId", "Title");
             ViewBag.ThirdChoiceOptionId = new SelectList(option, "OptionId", "Title");
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId");
+            ViewBag.StudentId = User.Identity.Name;
             var query = from a in db.YearTerms
                         where a.IsDefault.Equals(true)
                         select a;
