@@ -27,7 +27,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StudentId, "Student ID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <p class="form-control-static">@this.User.Identity.Name</p>
+                @Html.Hidden("Student ID", User.Identity.Name)
+                @Html.Label("Student ID", User.Identity.Name, new { @class = "form-control-static"})
             </div>
         </div>
         <div class="form-group">
