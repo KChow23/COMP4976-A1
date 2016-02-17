@@ -59,15 +59,15 @@ namespace OptionsWebSite.Controllers
             var term = query.FirstOrDefault();
             if(term.Term == 10)
             {
-                ViewBag.YearTermCurrent = "Winter";
+                ViewBag.YearTermCurrent = term.Year + "Winter";
             }
             else if (term.Term == 20)
             {
-                ViewBag.YearTermCurrent = "Spring/Summer";
+                ViewBag.YearTermCurrent = term.Year + "Spring/Summer";
             }
             else if (term.Term == 30)
             {
-                ViewBag.YearTermCurrent = "Fall";
+                ViewBag.YearTermCurrent = term.Year + "Fall";
             }
             ViewBag.YearId = term.YearTermId;
             return View();
@@ -102,15 +102,15 @@ namespace OptionsWebSite.Controllers
             var term = query.FirstOrDefault();
             if (term.Term == 10)
             {
-                ViewBag.YearTermCurrent = "Winter";
+                ViewBag.YearTermCurrent = term.Year + "Winter";
             }
             else if (term.Term == 20)
             {
-                ViewBag.YearTermCurrent = "Spring/Summer";
+                ViewBag.YearTermCurrent = term.Year + "Spring/Summer";
             }
             else if (term.Term == 30)
             {
-                ViewBag.YearTermCurrent = "Fall";
+                ViewBag.YearTermCurrent = term.Year + "Fall";
             }
             ViewBag.YearId = term.Term;
             return View(choice);
