@@ -81,8 +81,20 @@ namespace OptionsWebSite.Controllers
         [Authorize(Roles = "Student,Admin")]
         public ActionResult Create([Bind(Include = "ChoiceId,YearTermId,StudentId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
         {
+            var list = new List<int>();
+            list.Add((int)choice.FirstChoiceOptionId);
+            list.Add((int)choice.SecondChoiceOptionId);
+            list.Add((int)choice.ThirdChoiceOptionId);
+            list.Add((int)choice.FourthChoiceOptionId);
+
+            if(list.Count != list.Distinct().Count())
+            {
+                ModelState.AddModelError("", "Cannot have duplicate options");
+            }
+
             if (ModelState.IsValid)
             {
+                
                 db.Choices.Add(choice);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -149,6 +161,17 @@ namespace OptionsWebSite.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "ChoiceId,YearTermId,StudentId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
         {
+            var list = new List<int>();
+            list.Add((int)choice.FirstChoiceOptionId);
+            list.Add((int)choice.SecondChoiceOptionId);
+            list.Add((int)choice.ThirdChoiceOptionId);
+            list.Add((int)choice.FourthChoiceOptionId);
+
+            if (list.Count != list.Distinct().Count())
+            {
+                ModelState.AddModelError("", "Cannot have duplicate options");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(choice).State = EntityState.Modified;
