@@ -53,23 +53,28 @@ namespace OptionsWebSite.Controllers
             ViewBag.ThirdChoiceOptionId = new SelectList(option, "OptionId", "Title");
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId");
             ViewBag.StudentId = User.Identity.Name;
+
             var query = from a in db.YearTerms
                         where a.IsDefault.Equals(true)
                         select a;
+
             var term = query.FirstOrDefault();
+
             if(term.Term == 10)
             {
-                ViewBag.YearTermCurrent = term.Year + "Winter";
+                ViewBag.YearTermCurrent = term.Year + " Winter";
             }
             else if (term.Term == 20)
             {
-                ViewBag.YearTermCurrent = term.Year + "Spring/Summer";
+                ViewBag.YearTermCurrent = term.Year + " Spring/Summer";
             }
             else if (term.Term == 30)
             {
-                ViewBag.YearTermCurrent = term.Year + "Fall";
+                ViewBag.YearTermCurrent = term.Year + " Fall";
             }
+
             ViewBag.YearId = term.YearTermId;
+
             return View();
         }
 
@@ -81,12 +86,27 @@ namespace OptionsWebSite.Controllers
         [Authorize(Roles = "Student,Admin")]
         public ActionResult Create([Bind(Include = "ChoiceId,YearTermId,StudentId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
         {
-            var list = new List<int>();
-            list.Add((int)choice.FirstChoiceOptionId);
-            list.Add((int)choice.SecondChoiceOptionId);
-            list.Add((int)choice.ThirdChoiceOptionId);
-            list.Add((int)choice.FourthChoiceOptionId);
+            if (db.Choices.Where(c => c.StudentId == User.Identity.Name).FirstOrDefault() != null) {
 
+                ModelState.AddModelError("", "You have already submitted your selections.");
+            }
+
+            var list = new List<int>();
+            
+            // Ensure no choices were left unselected
+            if (choice.FirstChoiceOptionId == null
+                || choice.SecondChoiceOptionId == null
+                || choice.ThirdChoiceOptionId == null
+                || choice.FourthChoiceOptionId == null) {
+                ModelState.AddModelError("", "Cannot leave choices empty.");
+            } else {
+                list.Add((int) choice.FirstChoiceOptionId);
+                list.Add((int) choice.SecondChoiceOptionId);
+                list.Add((int) choice.ThirdChoiceOptionId);
+                list.Add((int) choice.FourthChoiceOptionId);
+            }
+
+            // Ensure no duplicate options were selected
             if(list.Count != list.Distinct().Count())
             {
                 ModelState.AddModelError("", "Cannot have duplicate options");
@@ -97,8 +117,10 @@ namespace OptionsWebSite.Controllers
                 
                 db.Choices.Add(choice);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
+
             var option = from a in db.Options
                          where a.IsActive.Equals(true)
                          select a;
@@ -108,22 +130,27 @@ namespace OptionsWebSite.Controllers
             ViewBag.SecondChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.SecondChoiceOptionId);
             ViewBag.ThirdChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.ThirdChoiceOptionId);
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId", choice.YearTermId);
+            ViewBag.StudentId = User.Identity.Name;
+
             var query = from a in db.YearTerms
                         where a.IsDefault.Equals(true)
                         select a;
+
             var term = query.FirstOrDefault();
+
             if (term.Term == 10)
             {
-                ViewBag.YearTermCurrent = term.Year + "Winter";
+                ViewBag.YearTermCurrent = term.Year + " Winter";
             }
             else if (term.Term == 20)
             {
-                ViewBag.YearTermCurrent = term.Year + "Spring/Summer";
+                ViewBag.YearTermCurrent = term.Year + " Spring/Summer";
             }
             else if (term.Term == 30)
             {
-                ViewBag.YearTermCurrent = term.Year + "Fall";
+                ViewBag.YearTermCurrent = term.Year + " Fall";
             }
+
             ViewBag.YearId = term.Term;
             return View(choice);
         }

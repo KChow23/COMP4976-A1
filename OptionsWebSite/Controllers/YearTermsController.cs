@@ -49,10 +49,23 @@ namespace OptionsWebSite
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "YearTermId,Year,Term,IsDefault")] YearTerm yearTerm)
         {
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
+
+                // If this new YearTerm is default, set all the others to false
+                if (yearTerm.IsDefault == true) {
+                    List<YearTerm> YearTerms = db.YearTerms.Where(p => p.IsDefault == true).ToList();
+
+                    foreach (YearTerm yt in YearTerms) {
+                        yt.IsDefault = false;
+                    }
+
+                    db.SaveChanges();
+                }
+
                 db.YearTerms.Add(yearTerm);
                 db.SaveChanges();
+
+
                 return RedirectToAction("Index");
             }
 
@@ -83,8 +96,21 @@ namespace OptionsWebSite
         {
             if (ModelState.IsValid)
             {
+
+                // If this edited YearTerm is default, set all the others to false
+                if (yearTerm.IsDefault == true) {
+                    List<YearTerm> YearTerms = db.YearTerms.Where(p => p.IsDefault == true).ToList();
+
+                    foreach (YearTerm yt in YearTerms) {
+                        yt.IsDefault = false;
+                    }
+
+                    db.SaveChanges();
+                }
+
                 db.Entry(yearTerm).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View(yearTerm);

@@ -20,6 +20,7 @@ namespace DiplomaDataModel
         public virtual YearTerm YearTerm { get; set; }
 
         [RegularExpression("A00[0-9]{6}")]
+        [Display(Name = "Student Id: ")]
         [MaxLength(9)]
         public string StudentId { get; set; }
 
@@ -33,18 +34,17 @@ namespace DiplomaDataModel
         [Required]
         public string StudentLastName { get; set; }
 
-        [Display(Name = "First Choice: ")]
         [Column(Order = 0)]
         [Index(IsUnique = true)]
         [UIHint("OptionDropdown")]
         [ForeignKey("FirstOption")]
         [Required]
         public int? FirstChoiceOptionId { get; set; }
-        
+
+        [Display(Name = "First Choice: ")]
         [ForeignKey("FirstChoiceOptionId")]
         public virtual Option FirstOption { get; set; }
 
-        [Display(Name = "Second Choice: ")]
         [Column(Order = 1)]
         [Index(IsUnique = true)]
         [UIHint("OptionDropdown")]
@@ -52,10 +52,10 @@ namespace DiplomaDataModel
         [Required]
         public int? SecondChoiceOptionId { get; set; }
 
+        [Display(Name = "Second Choice: ")]
         [ForeignKey("SecondChoiceOptionId")]
         public virtual Option SecondOption { get; set; }
 
-        [Display(Name = "Third Choice: ")]
         [Column(Order = 3)]
         [Index(IsUnique = true)]
         [UIHint("OptionDropdown")]
@@ -63,10 +63,10 @@ namespace DiplomaDataModel
         [Required]
         public int? ThirdChoiceOptionId { get; set; }
 
+        [Display(Name = "Third Choice: ")]
         [ForeignKey("ThirdChoiceOptionId")]
         public virtual Option ThirdOption { get; set; }
 
-        [Display(Name = "Fourth Choice: ")]
         [Column(Order = 4)]
         [Index(IsUnique = true)]
         [UIHint("OptionDropdown")]
@@ -74,6 +74,7 @@ namespace DiplomaDataModel
         [Required]
         public int? FourthChoiceOptionId { get; set; }
 
+        [Display(Name = "Fourth Choice: ")]
         [ForeignKey("FourthChoiceOptionId")]
         public virtual Option FourthOption { get; set; }
 
