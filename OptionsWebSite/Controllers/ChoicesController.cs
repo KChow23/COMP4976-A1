@@ -104,13 +104,14 @@ namespace OptionsWebSite.Controllers
                 list.Add((int) choice.SecondChoiceOptionId);
                 list.Add((int) choice.ThirdChoiceOptionId);
                 list.Add((int) choice.FourthChoiceOptionId);
+                // Ensure no duplicate options were selected
+                if (list.Count != list.Distinct().Count())
+                {
+                    ModelState.AddModelError("", "Cannot have duplicate options");
+                }
+
             }
 
-            // Ensure no duplicate options were selected
-            if(list.Count != list.Distinct().Count())
-            {
-                ModelState.AddModelError("", "Cannot have duplicate options");
-            }
 
             if (ModelState.IsValid)
             {
