@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstOption.Title)
+            First Option:
         </dt>
 
         <dd>
@@ -19,15 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FourthOption.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FourthOption.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SecondOption.Title)
+            Second Option:
         </dt>
 
         <dd>
@@ -35,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ThirdOption.Title)
+            Third Option:
         </dt>
 
         <dd>
@@ -43,11 +35,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.YearTerm.YearTermId)
+            Fourth Option:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.YearTerm.YearTermId)
+            @Html.DisplayFor(model => model.FourthOption.Title)
+        </dd>
+
+        <dt>
+            Year/Term:
+        </dt>
+
+        <dd>
+            @ViewBag.YearTerm
         </dd>
 
         <dt>

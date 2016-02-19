@@ -35,6 +35,15 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (choice.YearTerm.Term == 10) {
+                ViewBag.YearTerm = choice.YearTerm.Year + " Winter";
+            } else if (choice.YearTerm.Term == 20) {
+                ViewBag.YearTerm = choice.YearTerm.Year + " Spring/Summer";
+            } else if (choice.YearTerm.Term == 30) {
+                ViewBag.YearTerm = choice.YearTerm.Year + " Fall";
+            }
+
             return View(choice);
         }
 
@@ -177,6 +186,7 @@ namespace OptionsWebSite.Controllers
             ViewBag.SecondChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.SecondChoiceOptionId);
             ViewBag.ThirdChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.ThirdChoiceOptionId);
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId", choice.YearTermId);
+
             return View(choice);
         }
 
@@ -229,6 +239,15 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (choice.YearTerm.Term == 10) {
+                ViewBag.YearTerm = choice.YearTerm.Year + " Winter";
+            } else if (choice.YearTerm.Term == 20) {
+                ViewBag.YearTerm = choice.YearTerm.Year + " Spring/Summer";
+            } else if (choice.YearTerm.Term == 30) {
+                ViewBag.YearTerm = choice.YearTerm.Year + " Fall";
+            }
+
             return View(choice);
         }
 

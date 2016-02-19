@@ -206,6 +206,10 @@
     <Compile Include="Migrations\DiplomaMigrations\201602150149428_FirstDBCreation.Designer.cs">
       <DependentUpon>201602150149428_FirstDBCreation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DiplomaMigrations\201602190254254_FixedUniqueIndex.cs" />
+    <Compile Include="Migrations\DiplomaMigrations\201602190254254_FixedUniqueIndex.Designer.cs">
+      <DependentUpon>201602190254254_FixedUniqueIndex.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\DiplomaMigrations\Configuration.cs" />
     <Compile Include="Migrations\IdentityMigrations\201602142212433_InitialCreate.cs" />
     <Compile Include="Migrations\IdentityMigrations\201602142212433_InitialCreate.Designer.cs">
@@ -312,6 +316,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\DiplomaMigrations\201602150149428_FirstDBCreation.resx">
       <DependentUpon>201602150149428_FirstDBCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\DiplomaMigrations\201602190254254_FixedUniqueIndex.resx">
+      <DependentUpon>201602190254254_FixedUniqueIndex.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\IdentityMigrations\201602142212433_InitialCreate.resx">
       <DependentUpon>201602142212433_InitialCreate.cs</DependentUpon>

@@ -35,10 +35,8 @@ namespace DiplomaDataModel
         public string StudentLastName { get; set; }
 
         [Column(Order = 0)]
-        [Index(IsUnique = true)]
         [UIHint("OptionDropdown")]
         [ForeignKey("FirstOption")]
-        [Required]
         public int? FirstChoiceOptionId { get; set; }
 
         [Display(Name = "First Choice: ")]
@@ -46,10 +44,8 @@ namespace DiplomaDataModel
         public virtual Option FirstOption { get; set; }
 
         [Column(Order = 1)]
-        [Index(IsUnique = true)]
         [UIHint("OptionDropdown")]
         [ForeignKey("SecondOption")]
-        [Required]
         public int? SecondChoiceOptionId { get; set; }
 
         [Display(Name = "Second Choice: ")]
@@ -57,10 +53,8 @@ namespace DiplomaDataModel
         public virtual Option SecondOption { get; set; }
 
         [Column(Order = 3)]
-        [Index(IsUnique = true)]
         [UIHint("OptionDropdown")]
         [ForeignKey("ThirdOption")]
-        [Required]
         public int? ThirdChoiceOptionId { get; set; }
 
         [Display(Name = "Third Choice: ")]
@@ -68,10 +62,8 @@ namespace DiplomaDataModel
         public virtual Option ThirdOption { get; set; }
 
         [Column(Order = 4)]
-        [Index(IsUnique = true)]
         [UIHint("OptionDropdown")]
         [ForeignKey("FourthOption")]
-        [Required]
         public int? FourthChoiceOptionId { get; set; }
 
         [Display(Name = "Fourth Choice: ")]
