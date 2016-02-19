@@ -7,13 +7,13 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class FixedUniqueIndex : IMigrationMetadata
+    public sealed partial class FirstDBCreation : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FixedUniqueIndex));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FirstDBCreation));
         
         string IMigrationMetadata.Id
         {
-            get { return "201602190254254_FixedUniqueIndex"; }
+            get { return "201602190355221_FirstDBCreation"; }
         }
         
         string IMigrationMetadata.Source

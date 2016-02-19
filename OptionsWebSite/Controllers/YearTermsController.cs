@@ -59,7 +59,14 @@ namespace OptionsWebSite
                         yt.IsDefault = false;
                     }
 
-                    db.SaveChanges();
+                }
+                else
+                {
+                    var defaultYear = db.YearTerms.Where(prev => prev.IsDefault == true && prev.YearTermId != yearTerm.YearTermId).Count();
+                    if(defaultYear <= 0)
+                    {
+                        yearTerm.IsDefault = true;
+                    }
                 }
 
                 db.YearTerms.Add(yearTerm);
@@ -104,13 +111,18 @@ namespace OptionsWebSite
                     foreach (YearTerm yt in YearTerms) {
                         yt.IsDefault = false;
                     }
-
-                    db.SaveChanges();
+                }
+                else
+                {
+                    var defaultYear = db.YearTerms.Where(prev => prev.IsDefault == true && prev.YearTermId != yearTerm.YearTermId).Count();
+                    if (defaultYear <= 0)
+                    {
+                        yearTerm.IsDefault = true;
+                    }
                 }
 
                 db.Entry(yearTerm).State = EntityState.Modified;
                 db.SaveChanges();
-
                 return RedirectToAction("Index");
             }
             return View(yearTerm);
