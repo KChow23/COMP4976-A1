@@ -14,7 +14,6 @@ namespace OptionsWebSite.Controllers
     {
         private DiplomaContext db = new DiplomaContext();
 
-
         // GET: Choices
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
@@ -86,7 +85,7 @@ namespace OptionsWebSite.Controllers
         [Authorize(Roles = "Student,Admin")]
         public ActionResult Create([Bind(Include = "ChoiceId,YearTermId,StudentId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
         {
-            if (db.Choices.Where(c => c.StudentId == User.Identity.Name).FirstOrDefault() != null) {
+            if (db.Choices.Where(c => c.StudentId == User.Identity.Name).Where(c => c.YearTermId == choice.YearTermId).FirstOrDefault() != null) {
 
                 ModelState.AddModelError("", "You have already submitted your selections.");
             }
@@ -119,7 +118,7 @@ namespace OptionsWebSite.Controllers
                 db.Choices.Add(choice);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return View("success");
             }
 
             var option = from a in db.Options
