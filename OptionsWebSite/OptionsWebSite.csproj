@@ -202,9 +202,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\DiplomaMigrations\201602150149428_FirstDBCreation.cs" />
-    <Compile Include="Migrations\DiplomaMigrations\201602150149428_FirstDBCreation.Designer.cs">
-      <DependentUpon>201602150149428_FirstDBCreation.cs</DependentUpon>
+    <Compile Include="Migrations\DiplomaMigrations\201602190355221_FirstDBCreation.cs" />
+    <Compile Include="Migrations\DiplomaMigrations\201602190355221_FirstDBCreation.Designer.cs">
+      <DependentUpon>201602190355221_FirstDBCreation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\DiplomaMigrations\Configuration.cs" />
     <Compile Include="Migrations\IdentityMigrations\201602142212433_InitialCreate.cs" />
@@ -214,10 +214,10 @@
     <Compile Include="Migrations\IdentityMigrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="OptionsController.cs" />
+    <Compile Include="Controllers\OptionsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="YearTermsController.cs" />
+    <Compile Include="Controllers\YearTermsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -290,6 +290,7 @@
     <Content Include="Views\Options\Details.cshtml" />
     <Content Include="Views\Options\Edit.cshtml" />
     <Content Include="Views\Options\Index.cshtml" />
+    <Content Include="Views\Choices\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -309,8 +310,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\DiplomaMigrations\201602150149428_FirstDBCreation.resx">
-      <DependentUpon>201602150149428_FirstDBCreation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\DiplomaMigrations\201602190355221_FirstDBCreation.resx">
+      <DependentUpon>201602190355221_FirstDBCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\IdentityMigrations\201602142212433_InitialCreate.resx">
       <DependentUpon>201602142212433_InitialCreate.cs</DependentUpon>

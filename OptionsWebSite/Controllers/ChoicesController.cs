@@ -14,7 +14,6 @@ namespace OptionsWebSite.Controllers
     {
         private DiplomaContext db = new DiplomaContext();
 
-
         // GET: Choices
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
@@ -36,6 +35,15 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (choice.YearTerm.Term == 10) {
+                ViewBag.YearTerm = choice.YearTerm.Year + " Winter";
+            } else if (choice.YearTerm.Term == 20) {
+                ViewBag.YearTerm = choice.YearTerm.Year + " Spring/Summer";
+            } else if (choice.YearTerm.Term == 30) {
+                ViewBag.YearTerm = choice.YearTerm.Year + " Fall";
+            }
+
             return View(choice);
         }
 
@@ -53,23 +61,28 @@ namespace OptionsWebSite.Controllers
             ViewBag.ThirdChoiceOptionId = new SelectList(option, "OptionId", "Title");
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId");
             ViewBag.StudentId = User.Identity.Name;
+
             var query = from a in db.YearTerms
                         where a.IsDefault.Equals(true)
                         select a;
+
             var term = query.FirstOrDefault();
+
             if(term.Term == 10)
             {
-                ViewBag.YearTermCurrent = "Winter";
+                ViewBag.YearTermCurrent = term.Year + " Winter";
             }
             else if (term.Term == 20)
             {
-                ViewBag.YearTermCurrent = "Spring/Summer";
+                ViewBag.YearTermCurrent = term.Year + " Spring/Summer";
             }
             else if (term.Term == 30)
             {
-                ViewBag.YearTermCurrent = "Fall";
+                ViewBag.YearTermCurrent = term.Year + " Fall";
             }
+
             ViewBag.YearId = term.YearTermId;
+
             return View();
         }
 
@@ -81,12 +94,42 @@ namespace OptionsWebSite.Controllers
         [Authorize(Roles = "Student,Admin")]
         public ActionResult Create([Bind(Include = "ChoiceId,YearTermId,StudentId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
         {
+            if (db.Choices.Where(c => c.StudentId == User.Identity.Name).Where(c => c.YearTermId == choice.YearTermId).FirstOrDefault() != null) {
+
+                ModelState.AddModelError("", "You have already submitted your selections.");
+            }
+
+            var list = new List<int>();
+            
+            // Ensure no choices were left unselected
+            if (choice.FirstChoiceOptionId == null
+                || choice.SecondChoiceOptionId == null
+                || choice.ThirdChoiceOptionId == null
+                || choice.FourthChoiceOptionId == null) {
+                ModelState.AddModelError("", "Cannot leave choices empty.");
+            } else {
+                list.Add((int) choice.FirstChoiceOptionId);
+                list.Add((int) choice.SecondChoiceOptionId);
+                list.Add((int) choice.ThirdChoiceOptionId);
+                list.Add((int) choice.FourthChoiceOptionId);
+                // Ensure no duplicate options were selected
+                if (list.Count != list.Distinct().Count())
+                {
+                    ModelState.AddModelError("", "Cannot have duplicate options");
+                }
+
+            }
+
+
             if (ModelState.IsValid)
             {
+                
                 db.Choices.Add(choice);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return View("success");
             }
+
             var option = from a in db.Options
                          where a.IsActive.Equals(true)
                          select a;
@@ -96,22 +139,27 @@ namespace OptionsWebSite.Controllers
             ViewBag.SecondChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.SecondChoiceOptionId);
             ViewBag.ThirdChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.ThirdChoiceOptionId);
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId", choice.YearTermId);
+            ViewBag.StudentId = User.Identity.Name;
+
             var query = from a in db.YearTerms
                         where a.IsDefault.Equals(true)
                         select a;
+
             var term = query.FirstOrDefault();
+
             if (term.Term == 10)
             {
-                ViewBag.YearTermCurrent = "Winter";
+                ViewBag.YearTermCurrent = term.Year + " Winter";
             }
             else if (term.Term == 20)
             {
-                ViewBag.YearTermCurrent = "Spring/Summer";
+                ViewBag.YearTermCurrent = term.Year + " Spring/Summer";
             }
             else if (term.Term == 30)
             {
-                ViewBag.YearTermCurrent = "Fall";
+                ViewBag.YearTermCurrent = term.Year + " Fall";
             }
+
             ViewBag.YearId = term.Term;
             return View(choice);
         }
@@ -138,6 +186,7 @@ namespace OptionsWebSite.Controllers
             ViewBag.SecondChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.SecondChoiceOptionId);
             ViewBag.ThirdChoiceOptionId = new SelectList(option, "OptionId", "Title", choice.ThirdChoiceOptionId);
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId", choice.YearTermId);
+
             return View(choice);
         }
 
@@ -149,6 +198,17 @@ namespace OptionsWebSite.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "ChoiceId,YearTermId,StudentId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
         {
+            var list = new List<int>();
+            list.Add((int)choice.FirstChoiceOptionId);
+            list.Add((int)choice.SecondChoiceOptionId);
+            list.Add((int)choice.ThirdChoiceOptionId);
+            list.Add((int)choice.FourthChoiceOptionId);
+
+            if (list.Count != list.Distinct().Count())
+            {
+                ModelState.AddModelError("", "Cannot have duplicate options");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(choice).State = EntityState.Modified;
@@ -179,6 +239,15 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (choice.YearTerm.Term == 10) {
+                ViewBag.YearTerm = choice.YearTerm.Year + " Winter";
+            } else if (choice.YearTerm.Term == 20) {
+                ViewBag.YearTerm = choice.YearTerm.Year + " Spring/Summer";
+            } else if (choice.YearTerm.Term == 30) {
+                ViewBag.YearTerm = choice.YearTerm.Year + " Fall";
+            }
+
             return View(choice);
         }
 

@@ -12,10 +12,13 @@ namespace DiplomaDataModel
         [Key]
         public int YearTermId { get; set; }
 
+        [Display(Name = "Year: ")]
         public int Year { get; set; }
-
+        [RegularExpression("^(10|20|30)$", ErrorMessage = "Must be 10, 20 or 30")]
+        [Display(Name = "Term: ")]
         public int Term { get; set; }
 
+        [Display(Name = "Is Default: ")]
         public Boolean IsDefault { get; set; }
 
         public List<Choice> Choices { get; set; }
