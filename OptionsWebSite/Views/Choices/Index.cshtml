@@ -4,7 +4,7 @@
     ViewBag.Title = "Students Choices";
 }
 
-<h2>Index</h2>
+<h2>Student Choices</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -24,7 +24,7 @@
             Fourth Option
         </th>
         <th>
-            YearTerm Id
+            Year/Term
         </th>
         <th>
             Student Id
@@ -53,7 +53,13 @@
             @Html.DisplayFor(modelItem => item.FourthOption.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.YearTerm.YearTermId)
+            @if (item.YearTerm.Term == 10) {
+                @Html.Raw(item.YearTerm.Year +" Winter")
+            } else if (item.YearTerm.Term == 20) {
+                @Html.Raw(item.YearTerm.Year + " Spring/Summer")
+            } else if (item.YearTerm.Term == 30) {
+                @Html.Raw(item.YearTerm.Year + " Fall")
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.StudentId)

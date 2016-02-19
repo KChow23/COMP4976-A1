@@ -290,6 +290,7 @@
     <Content Include="Views\Options\Details.cshtml" />
     <Content Include="Views\Options\Edit.cshtml" />
     <Content Include="Views\Options\Index.cshtml" />
+    <Content Include="Views\Choices\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
