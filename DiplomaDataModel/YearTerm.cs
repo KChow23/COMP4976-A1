@@ -14,7 +14,7 @@ namespace DiplomaDataModel
 
         [Display(Name = "Year: ")]
         public int Year { get; set; }
-
+        [RegularExpression("^(10|20|30)$", ErrorMessage = "Must be 10, 20 or 30")]
         [Display(Name = "Term: ")]
         public int Term { get; set; }
 
