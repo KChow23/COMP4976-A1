@@ -17,7 +17,9 @@
         <h4>@ViewBag.YearTermCurrent</h4>
         <div class="form-group">
             <div class="col-md-10">
-                @Html.Hidden("YearTermId", (int)ViewBag.YearId)
+                @*Html.Hidden("YearTermId", (int)ViewBag.YearId)*@
+                @Html.HiddenFor(model => model.YearTermId, new { @class = "form-control", @placeholder = ViewBag.TermId, @Value = ViewBag.YearId, @readonly = "true" })
+                @Html.ValidationMessageFor(model => model.YearTermId, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -30,6 +32,8 @@
                 else if(User.IsInRole("Student")){
                     @Html.TextBoxFor(model => model.StudentId, new { @class = "form-control", @placeholder = ViewBag.StudentId, @Value = ViewBag.StudentId, @readonly = "true" })
                 }
+
+                @Html.TextBoxFor(model => model.StudentId, new { @class = "form-control", @placeholder = ViewBag.StudentId, @Value = ViewBag.StudentId, @readonly = "true" })
                 @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
             </div>
         </div>
