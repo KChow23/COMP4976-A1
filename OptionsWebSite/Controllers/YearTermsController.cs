@@ -39,6 +39,15 @@ namespace OptionsWebSite
         // GET: YearTerms/Create
         public ActionResult Create()
         {
+            List<SelectListItem> terms = new List<SelectListItem>()
+            {
+                new SelectListItem { Selected = false, Text = "Winter", Value = "10"},
+                new SelectListItem { Selected = false, Text = "Spring/Summer", Value = "20"},
+                new SelectListItem { Selected = false, Text = "Fall", Value = "30"},
+            };
+
+            ViewBag.Term = new SelectList(terms, "Value", "Text");
+
             return View();
         }
 
@@ -75,6 +84,14 @@ namespace OptionsWebSite
 
                 return RedirectToAction("Index");
             }
+            List<SelectListItem> terms = new List<SelectListItem>()
+            {
+                new SelectListItem { Selected = false, Text = "Winter", Value = "10"},
+                new SelectListItem { Selected = false, Text = "Spring/Summer", Value = "20"},
+                new SelectListItem { Selected = false, Text = "Fall", Value = "30"},
+            };
+
+            ViewBag.Term = new SelectList(terms, "Value", "Text", yearTerm.Term);
 
             return View(yearTerm);
         }
@@ -91,6 +108,16 @@ namespace OptionsWebSite
             {
                 return HttpNotFound();
             }
+
+            List<SelectListItem> terms = new List<SelectListItem>()
+            {
+                new SelectListItem { Selected = false, Text = "Winter", Value = "10"},
+                new SelectListItem { Selected = false, Text = "Spring/Summer", Value = "20"},
+                new SelectListItem { Selected = false, Text = "Fall", Value = "30"},
+            };
+
+            ViewBag.Term = new SelectList(terms, "Value", "Text", yearTerm.Term);
+
             return View(yearTerm);
         }
 
@@ -106,7 +133,7 @@ namespace OptionsWebSite
 
                 // If this edited YearTerm is default, set all the others to false
                 if (yearTerm.IsDefault == true) {
-                    List<YearTerm> YearTerms = db.YearTerms.Where(p => p.IsDefault == true).ToList();
+                    List<YearTerm> YearTerms = db.YearTerms.Where(p => p.IsDefault == true).Where(p => p.YearTermId != yearTerm.YearTermId).ToList();
 
                     foreach (YearTerm yt in YearTerms) {
                         yt.IsDefault = false;
@@ -125,6 +152,16 @@ namespace OptionsWebSite
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<SelectListItem> terms = new List<SelectListItem>()
+            {
+                new SelectListItem { Selected = false, Text = "Winter", Value = "10"},
+                new SelectListItem { Selected = false, Text = "Spring/Summer", Value = "20"},
+                new SelectListItem { Selected = false, Text = "Fall", Value = "30"},
+            };
+
+            ViewBag.Term = new SelectList(terms, "Value", "Text", yearTerm.Term);
+
             return View(yearTerm);
         }
 
@@ -149,6 +186,13 @@ namespace OptionsWebSite
         public ActionResult DeleteConfirmed(int id)
         {
             YearTerm yearTerm = db.YearTerms.Find(id);
+
+            if (yearTerm.IsDefault == true) {
+                ViewBag.ErrorMsg = "Can't delete the default YearTerm.";
+
+                return View(yearTerm);
+            }
+
             db.YearTerms.Remove(yearTerm);
             db.SaveChanges();
             return RedirectToAction("Index");
