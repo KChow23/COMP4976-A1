@@ -12,7 +12,8 @@ namespace OptionsWebSite
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            routes.IgnoreRoute("ApplicationUsers/Details/{id}");
+            routes.IgnoreRoute("ApplicationUsers/Create");
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
