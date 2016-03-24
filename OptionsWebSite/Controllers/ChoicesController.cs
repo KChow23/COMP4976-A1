@@ -20,6 +20,7 @@ namespace OptionsWebSite.Controllers
         {
             // Find the id of the default year/term
             var defaultYearTermId = db.YearTerms.Where(y => y.IsDefault == true).FirstOrDefault().YearTermId;
+            ViewBag.DefaultYearTermId = defaultYearTermId;
             // YearTerms dropdown list data
             ViewBag.YearTerms = new SelectList((from y in db.YearTerms.ToList() select new { YearTermId = y.YearTermId, Name = GetYearTermName(y.Term, y.Year) }), "YearTermId", "Name", defaultYearTermId);
 

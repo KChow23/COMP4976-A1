@@ -19,7 +19,7 @@ namespace OptionsWebAPI.Controllers
         // GET: api/Choices
         public IQueryable<Choice> GetChoices()
         {
-            return db.Choices.Include("YearTerm").Include("FirstOption").Include("SecondOption").Include("ThirdOption").Include("FourthOption");
+            return db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
         }
 
         // GET: api/Choices/5
