@@ -18,8 +18,24 @@ namespace OptionsWebSite.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
-            return View(choices.ToList());
+            // Find the id of the default year/term
+            var defaultYearTermId = db.YearTerms.Where(y => y.IsDefault == true).FirstOrDefault().YearTermId;
+            // YearTerms dropdown list data
+            ViewBag.YearTerms = new SelectList((from y in db.YearTerms.ToList() select new { YearTermId = y.YearTermId, Name = GetYearTermName(y.Term, y.Year) }), "YearTermId", "Name", defaultYearTermId);
+
+            // Report types dropdown list data
+            List<SelectListItem> reportTypes = new List<SelectListItem>()
+            {
+                new SelectListItem { Selected = true, Text = "Details Report", Value = "1"},
+                new SelectListItem { Selected = false, Text = "Chart", Value = "2"},
+            };
+
+            ViewBag.ReportTypes = new SelectList(reportTypes, "Value", "Text");
+
+
+            //var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
+            //return View(choices.ToList());
+            return View();
         }
 
         // GET: Choices/Details/5
@@ -270,6 +286,16 @@ namespace OptionsWebSite.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private string GetYearTermName(int term, int year) {
+            if (term == 10) {
+                return year + " - Winter";
+            } else if (term == 20) {
+                return year + " - Spring/Summer";
+            } else {
+                return year + " - Fall";
+            }
         }
     }
 }
