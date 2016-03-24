@@ -79,6 +79,12 @@ namespace OptionsWebSite.Controllers
                 return View(model);
             }
 
+            ApplicationDbContext db = new ApplicationDbContext();
+            var user = db.Users.Where(u => u.UserName.Equals(model.Username, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            if (user.LockoutEnabled)
+            {
+                return View("Lockout");
+            }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
@@ -164,11 +170,12 @@ namespace OptionsWebSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, LockoutEnabled = false };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     result = UserManager.AddToRole(user.Id, "Student");
+                    UserManager.SetLockoutEnabled(user.Id, false);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
