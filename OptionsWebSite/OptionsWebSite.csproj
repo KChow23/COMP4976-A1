@@ -208,6 +208,22 @@
     <Compile Include="Migrations\DiplomaMigrations\201602190355221_FirstDBCreation.Designer.cs">
       <DependentUpon>201602190355221_FirstDBCreation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DiplomaMigrations\201603250149366_Seeding YearTerm1.cs" />
+    <Compile Include="Migrations\DiplomaMigrations\201603250149366_Seeding YearTerm1.Designer.cs">
+      <DependentUpon>201603250149366_Seeding YearTerm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\DiplomaMigrations\201603250158085_Seeding YearTerm2.cs" />
+    <Compile Include="Migrations\DiplomaMigrations\201603250158085_Seeding YearTerm2.Designer.cs">
+      <DependentUpon>201603250158085_Seeding YearTerm2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\DiplomaMigrations\201603250204077_Seeding YearTerm3.cs" />
+    <Compile Include="Migrations\DiplomaMigrations\201603250204077_Seeding YearTerm3.Designer.cs">
+      <DependentUpon>201603250204077_Seeding YearTerm3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\DiplomaMigrations\201603250209358_Seeding YearTerm4.cs" />
+    <Compile Include="Migrations\DiplomaMigrations\201603250209358_Seeding YearTerm4.Designer.cs">
+      <DependentUpon>201603250209358_Seeding YearTerm4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\DiplomaMigrations\Configuration.cs" />
     <Compile Include="Migrations\IdentityMigrations\201602142212433_InitialCreate.cs" />
     <Compile Include="Migrations\IdentityMigrations\201602142212433_InitialCreate.Designer.cs">
@@ -325,6 +341,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\DiplomaMigrations\201602190355221_FirstDBCreation.resx">
       <DependentUpon>201602190355221_FirstDBCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\DiplomaMigrations\201603250149366_Seeding YearTerm1.resx">
+      <DependentUpon>201603250149366_Seeding YearTerm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\DiplomaMigrations\201603250158085_Seeding YearTerm2.resx">
+      <DependentUpon>201603250158085_Seeding YearTerm2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\DiplomaMigrations\201603250204077_Seeding YearTerm3.resx">
+      <DependentUpon>201603250204077_Seeding YearTerm3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\DiplomaMigrations\201603250209358_Seeding YearTerm4.resx">
+      <DependentUpon>201603250209358_Seeding YearTerm4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\IdentityMigrations\201602142212433_InitialCreate.resx">
       <DependentUpon>201602142212433_InitialCreate.cs</DependentUpon>

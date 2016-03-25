@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DiplomaDataModel;
+using System.Collections;
 
 namespace OptionsWebAPI.Controllers
 {
@@ -17,9 +18,11 @@ namespace OptionsWebAPI.Controllers
         private DiplomaContext db = new DiplomaContext();
 
         // GET: api/YearTerms
-        public IQueryable<YearTerm> GetYearTerms()
+        public IEnumerable GetYearTerms()
         {
-            return db.YearTerms;
+            var yearterms = (from y in db.YearTerms.ToList() select new { YearTermId = y.YearTermId, Year = y.Year, Term = y.Term, IsDefault = y.IsDefault, Name = GetYearTermName(y.Term, y.Year) });
+
+            return yearterms;
         }
 
         // GET: api/YearTerms/5
@@ -113,6 +116,16 @@ namespace OptionsWebAPI.Controllers
         private bool YearTermExists(int id)
         {
             return db.YearTerms.Count(e => e.YearTermId == id) > 0;
+        }
+
+        private string GetYearTermName(int term, int year) {
+            if (term == 10) {
+                return year + " - Winter";
+            } else if (term == 20) {
+                return year + " - Spring/Summer";
+            } else {
+                return year + " - Fall";
+            }
         }
     }
 }

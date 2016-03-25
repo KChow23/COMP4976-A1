@@ -10,18 +10,19 @@
     <div class="form-group">
         @Html.Label("Year/Term", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("YearTerms", null, null, htmlAttributes: new { @class = "form-control", data_ng_model = "yearterm", ng_init = "yearterm=" + ViewBag.DefaultYearTermId })
+            <select class="form-control" data-ng-model="yearterm" data-ng-options="yt.YearTermId as yt.Name for yt in yearterms" data-ng-change="changeYearTerm()">
+            </select>
         </div>
     </div>
     <div class="form-group">
         @Html.Label("Report Type", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("ReportTypes", null, null, htmlAttributes: new { @class = "form-control" })
+            <select class="form-control" data-ng-model="reporttype" data-ng-options="rt.Id as rt.Type for rt in reporttypes"></select>
         </div>
     </div>
     <button class="btn btn-primary" data-ng-click="generateReports()">Generate Reports</button>
-    <div data-ng-show="choices">
-        <hr />
+    <hr />
+    <div data-ng-show="choices && reporttype == 0">
         <table class="table table-responsive table-striped">
             <tr>
                 <th>Student Id</th>
@@ -47,6 +48,28 @@
                 </td>
             </tr>
         </table>
+    </div>
+    <div data-ng-show="choices && reporttype == 1">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Choice 1</h2>
+                <div class="ct-chart ct-perfect-fourth" id="chart1"></div>
+            </div>
+            <div class="col-md-6">
+                <h2>Choice 2</h2>
+                <div class="ct-chart ct-perfect-fourth" id="chart2"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Choice 3</h2>
+                <div class="ct-chart ct-perfect-fourth" id="chart3"></div>
+            </div>
+            <div class="col-md-6">
+                <h2>Choice 4</h2>
+                <div class="ct-chart ct-perfect-fourth" id="chart4"></div>
+            </div>
+        </div>
     </div>
 </div>
 

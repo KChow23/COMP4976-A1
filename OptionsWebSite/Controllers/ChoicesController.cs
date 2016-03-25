@@ -18,24 +18,6 @@ namespace OptionsWebSite.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            // Find the id of the default year/term
-            var defaultYearTermId = db.YearTerms.Where(y => y.IsDefault == true).FirstOrDefault().YearTermId;
-            ViewBag.DefaultYearTermId = defaultYearTermId;
-            // YearTerms dropdown list data
-            ViewBag.YearTerms = new SelectList((from y in db.YearTerms.ToList() select new { YearTermId = y.YearTermId, Name = GetYearTermName(y.Term, y.Year) }), "YearTermId", "Name", defaultYearTermId);
-
-            // Report types dropdown list data
-            List<SelectListItem> reportTypes = new List<SelectListItem>()
-            {
-                new SelectListItem { Selected = true, Text = "Details Report", Value = "1"},
-                new SelectListItem { Selected = false, Text = "Chart", Value = "2"},
-            };
-
-            ViewBag.ReportTypes = new SelectList(reportTypes, "Value", "Text");
-
-
-            //var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
-            //return View(choices.ToList());
             return View();
         }
 
