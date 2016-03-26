@@ -1,55 +1,66 @@
 ﻿//Student Service
 (function () {
 
-    var StudentService = function ($http) {
+    var UserService = function ($http, $window, localStorageService) {
 
-        var baseUrl = 'http://localhost:59788/api/Account/';
-
-        var _getUser = function (id) {
-            return $http.get(baseUrl + id)
-             .then(function (response) {
-                 return response.data;
-             });
+        var baseUrl = 'http://localhost:59788/';
+        var _authentication = {
+            token: "",
+            isAuth: false,
+            username: ""
         };
 
-        var _getAllStudents = function () {
-            return $http.get(baseUrl)
-              .then(function (response) {
-                  return response.data;
-              });
+        var _login = function (username, password) {
+            var data = "grant_type=password&username=" + username + "&password=" + password;
+
+            return $http.post(baseUrl + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+                .then(function (response) {
+
+                    localStorageService.set('authorizationData', { token: response.access_token, username: username });
+
+                    _authentication.isAuth = true;
+                    _authentication.username = username;
+                    _authentication.token = response.access_token;
+                    return response.data;
+                });
         };
 
-        var _addUser = function (data) {
-            return $http.post(baseUrl, data)
-              .then(function (response) {
-                  return response.data;
-              });
+        var _register = function (userData) {
+            _logout();
+
+            var data = "username=" + userData.username + "&email=" + userData.email + "&password=" + userData.password + "&confirmPassword=" + userData.confirmPassword;
+
+            return $http.post(baseUrl + 'api/account/register', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+                .then(function (response) {
+                    return response.data;
+                });
         };
 
-        var _deleteStudent = function (id) {
-            return $http.delete(baseUrl + id)
-              .then(function (response) {
-                  return response.data;
-              });
+        var _logout = function () {
+            localStorageService.remove('authorizationData');
+            _authentication.isAuth = false;
+            _authentication.userName = "";
         };
 
-        var _updateStudent = function (data) {
-            return $http.put(baseUrl + data.StudentId, data)
-              .then(function (response) {
-                  return response.data;
-              });
-        };
+        var _fillAuthData = function () {
+            var authData = localStorageService.get('authorizationData');
+            if (authData) {
+                _authentication.isAuth = true;
+                _authentication.username = authData.username;
+                _authentication.token = authData.token;
+            }
+        }
 
         return {
-            getStudent: _getStudent,
-            getAllStudents: _getAllStudents,
-            addStudent: _addStudent,
-            deleteStudent: _deleteStudent,
-            updateStudent: _updateStudent
+            login: _login,
+            register: _register,
+            logout: _logout,
+            fillAuthData: _fillAuthData,
+            authentication: _authentication
         };
     };
 
-    var module = angular.module("studentViewer");
-    module.factory("StudentService", StudentService);
+    var module = angular.module("diplomaApp");
+    module.factory("UserService", ['$http', '$q', 'localStorageService', UserService]);
 
 }());
