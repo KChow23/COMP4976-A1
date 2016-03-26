@@ -1,6 +1,6 @@
 ﻿app.controller('LoginController', function ($scope, $http, $location, UserService) {
     if (UserService.authentication.isAuth) {
-        $location.path('/submit');
+        $location.path('/choice');
     }
 
     $scope.message = 'Login Page';

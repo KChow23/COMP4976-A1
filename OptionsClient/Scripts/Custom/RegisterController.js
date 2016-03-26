@@ -1,6 +1,6 @@
 ﻿app.controller('RegisterController', function ($scope, $http, $location, $timeout, UserService) {
     if (UserService.authentication.isAuth) {
-        $location.path('/submit');
+        $location.path('/choice');
     }
 
     $scope.savedSuccessfully = false;
