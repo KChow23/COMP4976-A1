@@ -49,7 +49,7 @@
         };
     };
 
-    var module = angular.module("studentViewer");
-    module.factory("StudentService", StudentService);
+    var module = angular.module("diplomaApp");
+    module.factory("ChoiceService", ChoiceService);
 
 }());

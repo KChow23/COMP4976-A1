@@ -2,7 +2,7 @@
 
 (function () {
 
-    var app = angular.module("diplomaViewer");
+    var app = angular.module("diplomaApp");
 
     var ChoiceController = function ($scope, $location) {
 
