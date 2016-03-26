@@ -61,6 +61,6 @@
     };
 
     var module = angular.module("diplomaApp");
-    module.factory("UserService", ['$http', '$q', 'localStorageService', UserService]);
+    module.factory("userService", ['$http', '$q', 'localStorageService', UserService]);
 
 }());

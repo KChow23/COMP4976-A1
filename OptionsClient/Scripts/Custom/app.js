@@ -30,18 +30,18 @@ app.config(function ($routeProvider) {
 });
 
 // Controls the rootscope
-app.run(function ($rootScope, $route, $location,userService) {
+app.run(function ($rootScope, $route, $location, userService) {
     $rootScope.$on("$routeChangeSuccess", function (currentRoute, previousRoute) {
         //Change page title, based on Route information
         $rootScope.title = $route.current.title;
 
         // Set some data based on user authentication
-        accountService.fillAuthData();
-        $rootScope.authentication = accountService.authentication;
+        userService.fillAuthData();
+        $rootScope.authentication = userService.authentication;
 
         // Allow users to logout
         $rootScope.logout = function () {
-            accountService.logout();
+            userService.logout();
             $location.path('/home');
         }
     });
