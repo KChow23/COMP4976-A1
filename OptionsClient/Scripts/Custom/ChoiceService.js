@@ -1,55 +1,47 @@
-﻿//Student Service
+﻿// StudentService.js
+
 (function () {
 
-    var ChoiceService = function ($http) {
+    var ChoiceService = function ($http, $window, localStorageService) {
 
-        var baseUrl = 'http://localhost:59788/api/Choices/';
+        var baseUrl = 'http://localhost:59788/';
 
-        var _getChoice = function (id) {
-            return $http.get(baseUrl + id)
-             .then(function (response) {
-                 return response.data;
-             });
-        };
+        var _getData = function (token) {
+            return $http.get(baseUrl + 'api/options', { headers: { 'Authorization': token, 'Content-Type': 'application/json; charset=utf-8' } })
+                .then(function (response) {
+                    return response.data;
+                })
+        }
 
-        var _getAllStudents = function () {
-            return $http.get(baseUrl)
-              .then(function (response) {
-                  return response.data;
-              });
-        };
+        var _submitChoice = function (userData) {
+            var data = "YearTermID=" + userData.yearTermId
+                + "&StudentID=" + userData.studentID
+                + "&StudentFirstName="
+                + userData.firstName
+                + "&StudentLastName="
+                + userData.lastName
+                + "&FirstChoiceOptionId="
+                + userData.firstChoiceOptionId
+                + "&SecondChoiceOptionId="
+                + userData.secondChoiceOptionId
+                + "&ThirdChoiceOptionId="
+                + userData.thirdChoiceOptionId
+                + "&FourthChoiceOptionId="
+                + userData.fourthChoiceOptionId;
 
-        var _addStudent = function (data) {
-            return $http.post(baseUrl, data)
-              .then(function (response) {
-                  return response.data;
-              });
-        };
-
-        var _deleteStudent = function (id) {
-            return $http.delete(baseUrl + id)
-              .then(function (response) {
-                  return response.data;
-              });
-        };
-
-        var _updateStudent = function (data) {
-            return $http.put(baseUrl + data.StudentId, data)
-              .then(function (response) {
-                  return response.data;
-              });
+            return $http.post(baseUrl + 'api/choices', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+                .then(function (response) {
+                    return response.data;
+                })
         };
 
         return {
-            getStudent: _getStudent,
-            getAllStudents: _getAllStudents,
-            addStudent: _addStudent,
-            deleteStudent: _deleteStudent,
-            updateStudent: _updateStudent
+            getData: _getData,
+            submitChoice: _submitChoice
         };
     };
 
     var module = angular.module("diplomaApp");
-    module.factory("ChoiceService", ChoiceService);
+    module.factory("ChoiceService", ['$http', '$q', 'localStorageService', ChoiceService]);
 
 }());

@@ -1,5 +1,5 @@
-﻿app.controller('LoginController', function ($scope, $http, $location, userService) {
-    if (userService.authentication.isAuth) {
+﻿app.controller('LoginController', function ($scope, $http, $location, UserService) {
+    if (UserService.authentication.isAuth) {
         $location.path('/submit');
     }
 
@@ -17,7 +17,7 @@
     $scope.loginUser = function () {
         var username = $scope.user.username;
         var password = $scope.user.password;
-        userService.login(username, password)
+        UserService.login(username, password)
         .then(onAddComplete, onAddError);
     }
 });

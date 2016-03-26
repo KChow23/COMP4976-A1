@@ -15,7 +15,7 @@
 
     var onRegisterComplete = function (data) {
         $scope.savedSuccessfully = true;
-        $scope.message = "You have been registered successfully, you will be redicted to login page in 2 seconds.";
+        $scope.message = "You have been registered.";
 
         startTimer();
         console.log(data);
@@ -26,7 +26,7 @@
     };
 
     $scope.register = function () {
-        accountService.register($scope.user)
+        UserService.register($scope.user)
             .then(onRegisterComplete, onRegisterError);
     }
 
