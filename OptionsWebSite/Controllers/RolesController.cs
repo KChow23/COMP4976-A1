@@ -9,6 +9,7 @@ using System.Net;
 
 namespace OptionsWebSite.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         Models.ApplicationDbContext context = new Models.ApplicationDbContext();

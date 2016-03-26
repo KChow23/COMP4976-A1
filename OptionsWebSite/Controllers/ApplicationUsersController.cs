@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace OptionsWebSite.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ApplicationUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
