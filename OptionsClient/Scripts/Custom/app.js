@@ -23,6 +23,11 @@ app.config(function ($routeProvider) {
           templateUrl: 'views/submit.html',
           controller: 'SubmitController',
           title: 'Submit Choice'
+      })
+      .when('/choice', {
+          templateUrl: 'views/choice.html',
+          controller: 'ChoiceController',
+          title: 'Submit Choice'
       });
 
     $routeProvider.otherwise({ redirectTo: "/home" });

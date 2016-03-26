@@ -1,10 +1,45 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-	<meta charset="utf-8" />
-</head>
-<body>
-
-</body>
-</html>
+﻿<div class="container body-content">
+    <h2>Enter your choices</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+                <form class="form-horizontal" method="post" role="form">
+                    <hr />
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="choice1">First Choice</label>
+                        <div class="col-md-10">
+                            <select class="form-control" ng-model="choice.first" ng-options="op.OptionId as op.Title for op in options"></select>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="choice1">Second Choice</label>
+                        <div class="col-md-10">
+                            <select class="form-control" ng-model="choice.second" ng-options="op.OptionId as op.Title for op in options"></select>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="choice1">Third Choice</label>
+                        <div class="col-md-10">
+                            <select class="form-control" ng-model="choice.third" ng-options="op.OptionId as op.Title for op in options"></select>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="choice1">Fourth Choice</label>
+                        <div class="col-md-10">
+                            <select class="form-control" ng-model="choice.fourth" ng-options="op.OptionId as op.Title for op in options"></select>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button class="btn btn-default" ng-click="submit()">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>

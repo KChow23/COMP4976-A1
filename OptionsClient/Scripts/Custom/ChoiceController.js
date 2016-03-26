@@ -4,9 +4,19 @@
 
     var app = angular.module("diplomaApp");
 
-    var ChoiceController = function ($scope, $location) {
+    var ChoiceController = function ($scope, $location, ChoiceService) {
+        var onGetOptionsComplete = function (data) {
+            $scope.options = data;
+        };
 
-        var _user = {
+        var onGetOptionsError = function (reason) {
+            $scope.error = "Could not get the options.";
+        };
+
+        ChoiceService.getData()
+            .then(onGetOptionsComplete, onGetOptionsError);
+
+        /*var _user = {
             StudentId: "",
             FirstName: "",
             LastName: "",
@@ -98,8 +108,7 @@
         $scope.deleteStudent = function (personId) {
             StudentService.deleteStudent(personId)
             .then(onDeleteComplete, onDeleteError);
-        };
-
+        };*/
     };
 
     app.controller("ChoiceController", ChoiceController);
