@@ -13,7 +13,6 @@ using System.Web.Http.Cors;
 
 namespace OptionsWebAPI.Controllers
 {
-    [EnableCors("*", "*", "*")]
     public class ChoicesController : ApiController
     {
         private DiplomaContext db = new DiplomaContext();

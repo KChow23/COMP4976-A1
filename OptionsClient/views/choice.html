@@ -5,41 +5,57 @@
             <section id="loginForm">
                 <form class="form-horizontal" method="post" role="form">
                     <hr />
+                    {{ message }}
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="fname">First Name</label>
+                        <div class="col-md-10">
+                            <input id="fname" class="form-control" ng-model="user.StudentFirstName" type="text"/>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="fname" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="lname">Last Name</label>
+                        <div class="col-md-10">
+                            <input id="lname" class="form-control" ng-model="user.StudentLastName" type="text" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="lname" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="choice1">First Choice</label>
                         <div class="col-md-10">
-                            <select class="form-control" ng-model="choice.first" ng-options="op.OptionId as op.Title for op in options"></select>
-                            <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                            <select id="choice1" class="form-control" ng-model="user.FirstChoiceOptionId" ng-options="op.OptionId as op.Title for op in diplomaOptions | filter: {IsActive: true}"></select>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="choice1" data-valmsg-replace="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="choice1">Second Choice</label>
                         <div class="col-md-10">
-                            <select class="form-control" ng-model="choice.second" ng-options="op.OptionId as op.Title for op in options"></select>
-                            <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                            <select id="choice2" class="form-control" ng-model="user.SecondChoiceOptionId" ng-options="op.OptionId as op.Title for op in diplomaOptions | filter: {IsActive: true}"></select>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="choice2" data-valmsg-replace="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="choice1">Third Choice</label>
                         <div class="col-md-10">
-                            <select class="form-control" ng-model="choice.third" ng-options="op.OptionId as op.Title for op in options"></select>
-                            <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                            <select id="choice3" class="form-control" ng-model="user.ThirdChoiceOptionId" ng-options="op.OptionId as op.Title for op in diplomaOptions | filter: {IsActive: true}"></select>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="choice3" data-valmsg-replace="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="choice1">Fourth Choice</label>
                         <div class="col-md-10">
-                            <select class="form-control" ng-model="choice.fourth" ng-options="op.OptionId as op.Title for op in options"></select>
-                            <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                            <select id="choice4" class="form-control" ng-model="user.FourthChoiceOptionId" ng-options="op.OptionId as op.Title for op in diplomaOptions | filter: {IsActive: true}"></select>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="choice4" data-valmsg-replace="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <button class="btn btn-default" ng-click="submit()">Submit</button>
+                            <button class="btn btn-default" ng-click="submitChoice()">Submit</button>
                         </div>
                     </div>
                 </form>
             </section>
+            <button class="btn btn-danger" ng-click="logoutUser()">Log Out</button>
         </div>
     </div>
 </div>

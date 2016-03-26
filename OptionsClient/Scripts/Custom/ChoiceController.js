@@ -4,7 +4,11 @@
 
     var app = angular.module("diplomaApp");
 
-    var ChoiceController = function ($scope, $location, ChoiceService) {
+    var ChoiceController = function ($scope, $location, ChoiceService, UserService) {
+        if (!UserService.authentication.isAuth) {
+            $location.path('/login');
+        }
+
         var onGetOptionsComplete = function (data) {
             $scope.options = data;
         };
@@ -15,6 +19,11 @@
 
         ChoiceService.getData()
             .then(onGetOptionsComplete, onGetOptionsError);
+
+        $scope.logoutUser = function () {
+            UserService.logout();
+            $location.path('/login');
+        };
 
         /*var _user = {
             StudentId: "",

@@ -13,7 +13,7 @@
         var _login = function (username, password) {
             var data = "grant_type=password&username=" + username + "&password=" + password;
 
-            return $http.post(baseUrl + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+            return $http.post(baseUrl + 'token', data)
                 .then(function (response) {
 
                     localStorageService.set('authorizationData', { token: response.access_token, username: username });

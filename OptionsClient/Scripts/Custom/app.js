@@ -4,11 +4,6 @@
 app.config(function ($routeProvider, $httpProvider) {
 
     $routeProvider
-      .when('/home', {
-          templateUrl: 'views/home.html',
-          controller: 'HomeController',
-          title: 'Home'
-      })
       .when('/login', {
           templateUrl: 'views/login.html',
           controller: 'LoginController',
@@ -19,18 +14,13 @@ app.config(function ($routeProvider, $httpProvider) {
           controller: 'RegisterController',
           title: 'Register'
       })
-      .when('/submit', {
-          templateUrl: 'views/submit.html',
-          controller: 'SubmitController',
-          title: 'Submit Choice'
-      })
       .when('/choice', {
           templateUrl: 'views/choice.html',
           controller: 'SubmitController',
           title: 'Submit Choice'
       });
 
-    $routeProvider.otherwise({ redirectTo: "/home" });
+    $routeProvider.otherwise({ redirectTo: "/login" });
 
     $httpProvider.interceptors.push('AuthIntercept');
 

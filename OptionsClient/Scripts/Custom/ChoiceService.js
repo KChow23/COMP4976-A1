@@ -6,28 +6,48 @@
 
         var baseUrl = 'http://localhost:59788/';
 
-        var _getData = function (token) {
+        var _getOptions = function (token) {
             return $http.get(baseUrl + 'api/options', { headers: { 'Authorization': token, 'Content-Type': 'application/json; charset=utf-8' } })
                 .then(function (response) {
                     return response.data;
                 })
         }
 
+        var _getChoices = function (token) {
+            return $http.get(baseUrl + 'api/choices', { headers: { 'Authorization': token, 'Content-Type': 'application/json; charset=utf-8' } })
+                .then(function (response) {
+                    return response.data;
+                })
+        }
+
+        var _getYearTerm = function (token) {
+            return $http.get(baseUrl + 'api/yearterms', { headers: { 'Authorization': token, 'Content-Type': 'application/json; charset=utf-8' } })
+                .then(function (response) {
+                    for (var i in response.data) {
+                        if (response.data[i].IsDefault == true) {
+                            return response.data[i].YearTermId;
+                        }
+                    }
+
+                    return 1;
+                })
+        }
+
         var _submitChoice = function (userData) {
-            var data = "YearTermID=" + userData.yearTermId
-                + "&StudentID=" + userData.studentID
+            var data = "YearTermID=" + userData.YearTermId
+                + "&StudentID=" + userData.StudentId
                 + "&StudentFirstName="
-                + userData.firstName
+                + userData.StudentFirstName
                 + "&StudentLastName="
-                + userData.lastName
+                + userData.StudentLastName
                 + "&FirstChoiceOptionId="
-                + userData.firstChoiceOptionId
+                + userData.FirstChoiceOptionId
                 + "&SecondChoiceOptionId="
-                + userData.secondChoiceOptionId
+                + userData.SecondChoiceOptionId
                 + "&ThirdChoiceOptionId="
-                + userData.thirdChoiceOptionId
+                + userData.ThirdChoiceOptionId
                 + "&FourthChoiceOptionId="
-                + userData.fourthChoiceOptionId;
+                + userData.FourthChoiceOptionId;
 
             return $http.post(baseUrl + 'api/choices', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
                 .then(function (response) {
@@ -36,7 +56,9 @@
         };
 
         return {
-            getData: _getData,
+            getOptions: _getOptions,
+            getYearTerm: _getYearTerm,
+            getChoices: _getChoices,
             submitChoice: _submitChoice
         };
     };

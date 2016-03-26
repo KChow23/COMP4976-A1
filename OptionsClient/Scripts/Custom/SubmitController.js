@@ -6,10 +6,14 @@
     $scope.savedSuccessfully = false;
     $scope.message = "";
 
-    ChoiceService.getData(UserService.authentication.token).then(function (response) {
+    ChoiceService.getOptions(UserService.authentication.token).then(function (response) {
         console.log(response);
-        $scope.diplomaOptions = response.options;
-        $scope.user.YearTermId = response.YearTerm.Id;
+        $scope.diplomaOptions = response;
+    });
+
+    ChoiceService.getYearTerm(UserService.authentication.token).then(function (response) {
+        console.log(response);
+        $scope.user.YearTermId = response;
     });
 
     $scope.user = {
@@ -46,7 +50,39 @@
     $scope.submitChoice = function () {
         console.log($scope.user);
 
-        ChoiceService.submitChoice($scope.user)
-            .then(onRegisterComplete, onRegisterError);
+        var options = [$scope.user.FirstChoiceOptionId, $scope.user.SecondChoiceOptionId, $scope.user.ThirdChoiceOptionId, $scope.user.FourthChoiceOptionId];
+
+        $scope.message = "";
+
+        // Make sure theres no duplicate options
+        for (var i = 0; i < options.length - 1; i++) {
+            for (var k = i + 1; k < options.length; k++) {
+                if (options[i] == options[k]) {
+                    $scope.message = "Can't select the same option more than once. ";
+                    return;
+                }
+            }
+        }
+
+        // Make sure they have not already submitted for this term
+        ChoiceService.getChoices()
+            .then(function (response) {
+                for (var i in response) {
+                    if (response[i].YearTermId == $scope.user.YearTermId && response[i].StudentId == $scope.user.StudentId) {
+                        $scope.message = "You have already submitted for this term.";
+                        return;
+                    }
+                }
+
+                // If this all passed, submit the choices
+                ChoiceService.submitChoice($scope.user)
+                    .then(onRegisterComplete, onRegisterError);
+            });
+
     }
+
+    $scope.logoutUser = function () {
+        UserService.logout();
+        $location.path('/login');
+    };
 });
