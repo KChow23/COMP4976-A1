@@ -1,4 +1,4 @@
-﻿app.controller('loginController', function ($scope, $http, $location, UserService) {
+﻿app.controller('LoginController', function ($scope, $http, $location, userService) {
     if (userService.authentication.isAuth) {
         $location.path('/submit');
     }
