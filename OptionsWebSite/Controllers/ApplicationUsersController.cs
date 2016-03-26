@@ -143,18 +143,25 @@ namespace OptionsWebSite.Controllers
 
             if (!string.IsNullOrWhiteSpace(UserName))
             {
-                ApplicationUser user = db.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                ViewBag.ResultMessage = "Invalid Value!";
 
-                if (UserManager.IsInRole(user.Id, RoleName))
+                if (!string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(RoleName))
                 {
-                    UserManager.RemoveFromRole(user.Id, RoleName);
-                    ViewBag.ResultMessage = "Role removed from this user successfully !";
+                    ApplicationUser user = db.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                    if (user.UserName == "A00111111" && RoleName == "Admin")
+                    {
+                        ViewBag.ResultMessage = "Cannot remove user from Admin role.";
+                    }
+                    else if (UserManager.IsInRole(user.Id, RoleName))
+                    {
+                        UserManager.RemoveFromRole(user.Id, RoleName);
+                        ViewBag.ResultMessage = "Role removed from this user successfully !";
+                    }
+                    else
+                    {
+                        ViewBag.ResultMessage = "This user doesn't belong to selected role.";
+                    }
                 }
-                else
-                {
-                    ViewBag.ResultMessage = "This user doesn't belong to selected role.";
-                }
-
             }
             // prepopulate roles for the view dropdown
             var list = db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
