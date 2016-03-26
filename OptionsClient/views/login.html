@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css" />
+    <script src="Scripts/jquery-2.2.0.min.js"></script>
+    <script src="Scripts/jquery-ui-1.11.3.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script data-require="angular.js@~1.4.0-beta.6" data-semver="1.4.0-beta.6" src="https://code.angularjs.org/1.4.0-beta.6/angular.js"></script>
+    <script data-require="angular-route@*" data-semver="1.4.0-beta.6" src="https://code.angularjs.org/1.4.0-beta.6/angular-route.js"></script>
+
+    <script src="Scripts/Custom/app.js"></script>
+    <script src="Scripts/Custom/ChoiceController.js"></script>
+    <script src="Scripts/Custom/UserController.js"></script>
+
+</head>
+
+<body data-ng-app="diplomaViewer">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Diploma Option</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/Register" id="registerLink">Register</a>
+                    </li>
+                    <li>
+                        <a href="/Login" id="loginLink">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <h2>Log in</h2>
+        <div class="row">
+            <div class="col-md-8">
+                <section id="loginForm">
+                    <form action="/Account/Login" class="form-horizontal" method="post" role="form">
+                        <input name="__RequestVerificationToken" type="hidden" value="GU5Ho_fJhJL8Q9DChGGgOjEogMRbLpid8FzUSlZX2bISEl_MLtBIHIYGAv_GPuZicaiO4aMbEIqzrwS7k3aLYnn4J42Z_OMjJ9XJzPp8t2g1" />                <h4>Please log in to your account.</h4>
+                        <hr />
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="Username">User Name</label>
+                            <div class="col-md-10">
+                                <input class="form-control" data-val="true" data-val-maxlength="The field User Name must be a string or array type with a maximum length of &#39;9&#39;." data-val-maxlength-max="9" data-val-required="The User Name field is required." id="Username" name="Username" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="Password">Password</label>
+                            <div class="col-md-10">
+                                <input class="form-control" data-val="true" data-val-required="The Password field is required." id="Password" name="Password" type="password" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="checkbox">
+                                    <input data-val="true" data-val-required="The Remember me? field is required." id="RememberMe" name="RememberMe" type="checkbox" value="true" /><input name="RememberMe" type="hidden" value="false" />
+                                    <label for="RememberMe">Remember me?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Log in" class="btn btn-default" />
+                            </div>
+                        </div>
+                        <p>
+                            <a href="/Account/Register">Register as a new user</a>
+                        </p>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
