@@ -35,6 +35,11 @@ namespace OptionsWebAPI.Models
     public class RegisterBindingModel
     {
         [Required]
+        [RegularExpression("A00[0-9]{6}")]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

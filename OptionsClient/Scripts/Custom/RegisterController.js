@@ -22,6 +22,14 @@
     };
 
     var onRegisterError = function (response) {
+        var errors = [];
+        for (var key in response.data.ModelState) {
+            for (var i = 0; i < response.data.ModelState[key].length; i++) {
+                errors.push(response.data.ModelState[key][i]);
+            }
+        }
+        $scope.savedSuccessfully = false;
+        $scope.message = "Failed to register user due to:" + errors.join('\n');
         console.log(response);
     };
 
