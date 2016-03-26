@@ -6,21 +6,21 @@
     $scope.savedSuccessfully = false;
     $scope.message = "";
 
-    studentService.getData(UserService.authentication.token).then(function (response) {
+    ChoiceService.getData(UserService.authentication.token).then(function (response) {
         console.log(response);
         $scope.diplomaOptions = response.options;
-        $scope.user.yearTermId = response.yearterm.id;
+        $scope.user.YearTermId = response.YearTerm.Id;
     });
 
     $scope.user = {
-        yearTermId: "",
-        studentID: UserService.authentication.username,
-        firstName: "",
-        lastName: "",
-        firstChoiceOptionId: "0",
-        secondChoiceOptionId: "0",
-        thirdChoiceOptionId: "0",
-        fourthChoiceOptionId: "0",
+        YearTermId: "",
+        StudentId: UserService.authentication.username,
+        StudentFirstName: "",
+        StudentLastName: "",
+        FirstChoiceOptionId: "0",
+        SecondChoiceOptionId: "0",
+        ThirdChoiceOptionId: "0",
+        FourthChoiceOptionId: "0",
     };
 
     var onRegisterComplete = function (data) {
@@ -46,7 +46,7 @@
     $scope.submitChoice = function () {
         console.log($scope.user);
 
-        studentService.submitChoice($scope.user)
+        ChoiceService.submitChoice($scope.user)
             .then(onRegisterComplete, onRegisterError);
     }
 });

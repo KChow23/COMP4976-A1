@@ -1,7 +1,7 @@
 ﻿var app = angular.module('diplomaApp', ['ngRoute', 'LocalStorageModule']);
 
 // Setup the routing
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider, $httpProvider) {
 
     $routeProvider
       .when('/home', {
@@ -26,25 +26,22 @@ app.config(function ($routeProvider) {
       })
       .when('/choice', {
           templateUrl: 'views/choice.html',
-          controller: 'ChoiceController',
+          controller: 'SubmitController',
           title: 'Submit Choice'
       });
 
     $routeProvider.otherwise({ redirectTo: "/home" });
 
+    $httpProvider.interceptors.push('AuthIntercept');
+
 });
 
-// Controls the rootscope
 app.run(function ($rootScope, $route, $location, UserService) {
     $rootScope.$on("$routeChangeSuccess", function (currentRoute, previousRoute) {
-        //Change page title, based on Route information
         $rootScope.title = $route.current.title;
-
-        // Set some data based on user authentication
         UserService.fillAuthData();
         $rootScope.authentication = UserService.authentication;
 
-        // Allow users to logout
         $rootScope.logout = function () {
             UserService.logout();
             $location.path('/home');
